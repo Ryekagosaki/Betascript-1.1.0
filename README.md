@@ -56,7 +56,7 @@ Bahasa ini otomatis ditranspil ke JavaScript, jadi bisa dipake di mana aja JavaS
 Cara paling enak adalah pakai Plugin Source URL Acode:
 
 ```text
-https://raw.githubusercontent.com/Ryekagosaki/Betascript-1.0.1/main/acode-plugin-source.json
+https://raw.githubusercontent.com/Ryekagosaki/Betascript-Acode/main/acode-plugin-source.json
 ```
 
 Langkahnya:
@@ -75,7 +75,7 @@ Kalau Plugin Source URL belum tersedia di versi Acode kamu, pakai cara ZIP manua
 Plugin Acode BetaScript sudah tersedia sebagai ZIP publik di GitHub Release:
 
 ```text
-https://github.com/Ryekagosaki/Betascript-1.0.1/releases/download/v1.0.1/betascript-acode-1.0.1.zip
+https://github.com/Ryekagosaki/Betascript-Acode/releases/download/v1.0.1/betascript-acode-1.0.1.zip
 ```
 
 Cara install di Acode:
@@ -122,13 +122,16 @@ npm install -g .
 
 1. Buka VS Code
 2. Pergi ke Extensions (Ctrl+Shift+X)
-3. Cari "BetaScript" atau install dari folder `vscode-betascript/`
-4. Klik Install
+3. Gunakan repo extension terpisah: https://github.com/Ryekagosaki/Betascript-VSCode
+4. Ikuti instruksi install/package di repo extension tersebut
 5. Restart VS Code
 
 Atau install manual:
 ```bash
-code --install-extension vscode-betascript/
+git clone https://github.com/Ryekagosaki/Betascript-VSCode.git
+cd Betascript-VSCode
+npm install
+npm run compile
 ```
 
 ### Web

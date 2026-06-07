@@ -5,7 +5,7 @@ BetaScript bisa dipakai secara global di Acode lewat **Plugin Source URL** dari 
 ## Plugin Source URL
 
 ```text
-https://raw.githubusercontent.com/Ryekagosaki/Betascript-1.0.1/main/acode-plugin-source.json
+https://raw.githubusercontent.com/Ryekagosaki/Betascript-Acode/main/acode-plugin-source.json
 ```
 
 ## Cara Pakai di Acode
@@ -16,7 +16,7 @@ https://raw.githubusercontent.com/Ryekagosaki/Betascript-1.0.1/main/acode-plugin
 4. Tambahkan URL ini:
 
 ```text
-https://raw.githubusercontent.com/Ryekagosaki/Betascript-1.0.1/main/acode-plugin-source.json
+https://raw.githubusercontent.com/Ryekagosaki/Betascript-Acode/main/acode-plugin-source.json
 ```
 
 5. Refresh daftar plugin.
@@ -31,7 +31,7 @@ Setelah plugin aktif, file `.beta` akan dikenali sebagai BetaScript dan logo Bet
 Kalau versi Acode pengguna belum punya menu plugin source/custom source, gunakan ZIP manual dari GitHub Release:
 
 ```text
-https://github.com/Ryekagosaki/Betascript-1.0.1/releases/download/v1.0.1/betascript-acode-1.0.1.zip
+https://github.com/Ryekagosaki/Betascript-Acode/releases/download/v1.0.1/betascript-acode-1.0.1.zip
 ```
 
 ## Catatan Penting

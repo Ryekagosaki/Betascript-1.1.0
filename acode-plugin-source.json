@@ -2,8 +2,8 @@
   {
     "id": "acode.betascript",
     "name": "BetaScript",
-    "icon": "https://raw.githubusercontent.com/Ryekagosaki/Betascript-1.0.1/main/acode-betascript/icons/betascript.png",
-    "plugin": "https://raw.githubusercontent.com/Ryekagosaki/Betascript-1.0.1/main/acode-betascript/plugin.json",
+    "icon": "https://raw.githubusercontent.com/Ryekagosaki/Betascript-Acode/main/icons/betascript.png",
+    "plugin": "https://raw.githubusercontent.com/Ryekagosaki/Betascript-Acode/main/plugin.json",
     "author": {
       "name": "BetaScript Project",
       "github": "Ryekagosaki"
