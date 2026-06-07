@@ -75,16 +75,16 @@ Kalau Plugin Source URL belum tersedia di versi Acode kamu, pakai cara ZIP manua
 Plugin Acode BetaScript sudah tersedia sebagai ZIP publik di GitHub Release:
 
 ```text
-https://github.com/Ryekagosaki/Betascript-Acode/releases/download/v1.0.1/betascript-acode-1.0.1.zip
+https://github.com/Ryekagosaki/Betascript-Acode/releases/download/v1.0.2/betascript-acode-1.0.2.zip
 ```
 
 Cara install di Acode:
 
-1. Download file `betascript-acode-1.0.1.zip` dari link di atas.
+1. Download file `betascript-acode-1.0.2.zip` dari link di atas.
 2. Buka Acode di HP.
 3. Masuk ke menu plugin/extension.
 4. Pilih install plugin dari file ZIP lokal.
-5. Pilih `betascript-acode-1.0.1.zip`.
+5. Pilih `betascript-acode-1.0.2.zip`.
 6. Restart Acode.
 7. Buat file baru, misalnya `test.beta`.
 
