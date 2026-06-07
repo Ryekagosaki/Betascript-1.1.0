@@ -1,10 +1,10 @@
 {
   "name": "betascript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bahasa pemrograman berbasis Betawi - Ngoding rasa Betawi, kagak ribet!",
   "main": "dist/src/index.js",
   "bin": {
-    "betascript": "./bin/betascript.js"
+    "betascript": "bin/betascript.js"
   },
   "scripts": {
     "build": "tsc",

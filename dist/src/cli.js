@@ -170,7 +170,7 @@ function run() {
     program
         .name('betascript')
         .description('BetaScript Compiler - Ngoding rasa Betawi, kagak ribet!')
-        .version('1.0.0');
+        .version('1.0.1');
     program
         .command('compile <file>')
         .description('Compile BetaScript to JavaScript')
