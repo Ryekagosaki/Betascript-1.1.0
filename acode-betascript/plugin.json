@@ -3,7 +3,7 @@
   "name": "betascript-acode",
   "displayName": "BetaScript Language Support",
   "description": "Syntax highlighting, transpilation, and execution for BetaScript in Acode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "BetaScript Project",
   "license": "MIT",
   "main": "src/main.js",
@@ -19,7 +19,7 @@
         "id": "betascript",
         "name": "BetaScript",
         "aliases": ["BetaScript", "betascript", "beta"],
-        "extensions": [".beta"],
+        "extensions": ["beta", ".beta"],
         "icon": "icons/betascript.svg"
       }
     ],

@@ -8,6 +8,9 @@
   const CSS_ID = "betascript-plugin-style";
   const RUN_BUTTON_ID = "betascript-run-btn";
   const OUTPUT_PANEL_ID = "betascript-output-panel";
+  const FILE_ICON_CLASS = "betascript-file-icon-badge";
+  const BETA_ICON = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF6B35"/><stop offset="100%" style="stop-color:#F7931E"/></linearGradient></defs><rect width="120" height="120" x="4" y="4" rx="20" ry="20" fill="url(#bg)"/><text x="64" y="88" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">β</text><polygon points="100,15 103,25 113,25 105,31 108,41 100,35 92,41 95,31 87,25 97,25" fill="#FFD700"/></svg>`)}`;
+  let fileIconObserver = null;
 
   function injectStyles() {
     if (document.getElementById(CSS_ID)) return;
@@ -67,8 +70,86 @@
       .${OUTPUT_PANEL_ID}__success {
         color: #89d185;
       }
+      .${FILE_ICON_CLASS} {
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        display: inline-block;
+        margin-right: 6px;
+        vertical-align: -4px;
+        background-image: url("${BETA_ICON}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     `;
     document.head.appendChild(style);
+  }
+
+  function elementLooksLikeBetaFile(element) {
+    if (!element || element.nodeType !== 1) return false;
+    if (element.closest(".ace_editor, textarea, [contenteditable='true'], ." + OUTPUT_PANEL_ID)) return false;
+
+    const attrs = ["title", "data-path", "data-file", "data-name", "aria-label"];
+    for (const attr of attrs) {
+      const value = element.getAttribute && element.getAttribute(attr);
+      if (value && /(^|[\\/\s])[^\\/\s]+\.beta($|\s)/i.test(value)) return true;
+    }
+
+    const text = (element.textContent || "").trim();
+    return text.length > 0 && text.length < 120 && /(^|[\\/\s])[^\\/\s]+\.beta($|\s)/i.test(text);
+  }
+
+  function addBetaIcon(element) {
+    if (element.dataset && element.dataset.betascriptIcon === "1") return;
+    const target = element.querySelector?.(".file-name, .name, .title, span") || element;
+    if (target.querySelector?.(`.${FILE_ICON_CLASS}`)) return;
+
+    const icon = document.createElement("span");
+    icon.className = FILE_ICON_CLASS;
+    icon.setAttribute("aria-hidden", "true");
+    target.insertBefore(icon, target.firstChild);
+
+    if (element.dataset) element.dataset.betascriptIcon = "1";
+  }
+
+  function decorateBetaFileIcons(root = document) {
+    const selector = [
+      "[title$='.beta']",
+      "[data-path$='.beta']",
+      "[data-file$='.beta']",
+      "[data-name$='.beta']",
+      "[aria-label$='.beta']",
+      "li",
+      ".file",
+      ".file-item",
+      ".list-item",
+      ".tree-item",
+      ".item"
+    ].join(",");
+
+    const candidates = root.querySelectorAll ? root.querySelectorAll(selector) : [];
+    candidates.forEach((element) => {
+      if (elementLooksLikeBetaFile(element)) addBetaIcon(element);
+    });
+  }
+
+  function startFileIconObserver() {
+    decorateBetaFileIcons();
+    if (fileIconObserver) return;
+
+    fileIconObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) {
+            if (elementLooksLikeBetaFile(node)) addBetaIcon(node);
+            decorateBetaFileIcons(node);
+          }
+        });
+      }
+    });
+
+    fileIconObserver.observe(document.body, { childList: true, subtree: true });
   }
 
   function createRunButton() {
@@ -190,7 +271,7 @@
     outputPanel.style.display = "block";
   }
 
-  acode?.?.ready?.()?.({
+  const plugin = {
     name: PLUGIN_NAME,
     background: false,
     init: function () {
@@ -198,9 +279,11 @@
       createRunButton();
       createOutputPanel();
       initWorker();
+      startFileIconObserver();
     },
     onFileSelected: function () {
       runButton.style.display = "block";
+      decorateBetaFileIcons();
     },
     onEditorChanged: function (e) {
       if (e && e.editor && e.editor.getText) {
@@ -218,9 +301,24 @@
       if (outputPanel && outputPanel.parentNode) {
         outputPanel.parentNode.removeChild(outputPanel);
       }
+      if (fileIconObserver) {
+        fileIconObserver.disconnect();
+        fileIconObserver = null;
+      }
+      document.querySelectorAll(`.${FILE_ICON_CLASS}`).forEach((icon) => icon.remove());
       outputPanel = null;
       worker = null;
       runButton = null;
     }
-  });
+  };
+
+  if (typeof acode !== "undefined" && acode && typeof acode.ready === "function") {
+    const ready = acode.ready();
+    if (typeof ready === "function") ready(plugin);
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      injectStyles();
+      startFileIconObserver();
+    });
+  }
 })();
