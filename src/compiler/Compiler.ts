@@ -119,6 +119,16 @@ export class Compiler {
     };
   }
 
+  private trim(value: string): string {
+    if (!value) return value;
+    return value
+      .replace(/^\s+/gm, "")
+      .split("\n")
+      .map(line => line.trimEnd())
+      .join("\n")
+      .trim();
+  }
+
   private generateWebsite(source: string): { html: string; blocks: any[] } {
     const blocks = this.embeddedParser.ekstrakBlok(source);
     const extracted = this.embeddedParser.ambilSemuaBlok();
@@ -130,11 +140,11 @@ export class Compiler {
     for (const block of extracted) {
       const normalized = block.bahasa.toLowerCase();
       if (normalized === "html" || normalized === "xhtml") {
-        html = block.kodeMentah;
+        html = this.trim(block.kodeMentah);
       } else if (normalized === "css" || normalized === "style") {
-        css = block.kodeMentah;
+        css = this.trim(block.kodeMentah);
       } else if (normalized === "js" || normalized === "javascript") {
-        js = block.kodeMentah;
+        js = this.trim(block.kodeMentah);
       }
     }
 
@@ -158,6 +168,20 @@ export class Compiler {
     const fullHtml = `<!DOCTYPE html>\n<html lang="id">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Website BetaScript</title>${cssBlock}</head>\n<body>\n${html}\n${jsBlock}</body>\n</html>`;
 
     return { html: fullHtml, blocks: extracted };
+  }
+
+  private dedent(value: string): string {
+    const lines = value.split(/\r?\n/);
+    const indent = lines.reduce((min, line) => {
+      const match = line.match(/^(\s*)/);
+      const spaces = match ? match[1].length : 0;
+      const nonEmpty = line.trim().length > 0;
+      return nonEmpty ? Math.min(min, spaces) : min;
+    }, Infinity);
+    if (!Number.isFinite(indent) || indent <= 0) return value;
+    const stripRe = new RegExp(`^ {1,${indent}}`);
+    const dedented = lines.map(line => line.replace(stripRe, "")).join("\n");
+    return dedented.trim();
   }
 
   run(source: string, options: CompileOptions = {}) {
