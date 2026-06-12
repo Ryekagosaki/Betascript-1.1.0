@@ -6,7 +6,7 @@ describe("Lexer", () => {
     test("should tokenize keywords", () => {
         const lexer = new Lexer_1.Lexer("ane tetep kalo selagi kerjain deret");
         const tokens = lexer.tokenize();
-        expect(tokens[0].type).toBe(Token_1.TokenType.ANCE);
+        expect(tokens[0].type).toBe(Token_1.TokenType.ANE);
         expect(tokens[1].type).toBe(Token_1.TokenType.TETEP);
         expect(tokens[2].type).toBe(Token_1.TokenType.KALO);
         expect(tokens[3].type).toBe(Token_1.TokenType.SELAGI);

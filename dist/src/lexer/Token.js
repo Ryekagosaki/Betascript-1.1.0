@@ -9,17 +9,16 @@ var TokenType;
     TokenType["TEMPLATE"] = "TEMPLATE";
     TokenType["REGEX"] = "REGEX";
     TokenType["IDENTIFIER"] = "IDENTIFIER";
-    // Keywords
-    TokenType["ANCE"] = "ane";
-    TokenType["ENTE"] = "ente";
+    // Keywords - Modern Betawi
+    TokenType["ANE"] = "ane";
+    TokenType["TETEP"] = "tetep";
     TokenType["BETOEL"] = "betoel";
     TokenType["KAGA"] = "kaga";
     TokenType["KOSONG"] = "kosong";
-    TokenType["ENTAH"] = "entah";
-    TokenType["TETEP"] = "tetep";
     TokenType["ANGKA"] = "angka";
     TokenType["KATA"] = "kata";
-    TokenType["TUNGGU"] = "tungguin";
+    TokenType["ENTE"] = "ente";
+    TokenType["ENTAH"] = "entah";
     // Control flow
     TokenType["KALO"] = "kalo";
     TokenType["KAGAKNYE"] = "kagaknye";
@@ -43,6 +42,7 @@ var TokenType;
     TokenType["TURUN"] = "turun";
     TokenType["IKUT"] = "ikut";
     TokenType["MULA"] = "mula";
+    TokenType["KONSTRUKTOR"] = "konstruktor";
     TokenType["GUA"] = "gua";
     TokenType["PUNYE"] = "punye";
     TokenType["BABANG"] = "babang";
@@ -68,8 +68,49 @@ var TokenType;
     TokenType["KUMPULIN"] = "kumpulin";
     TokenType["ACAK"] = "acak";
     TokenType["TIDUR"] = "tidur";
-    // Interfaces
+    // Interface & type system
     TokenType["ANTARMUKA"] = "antarmuka";
+    TokenType["TIPE"] = "tipe";
+    TokenType["ABSTRAK"] = "abstrak";
+    TokenType["IMPLEMENTASI"] = "implementasi";
+    TokenType["PAKET"] = "paket";
+    TokenType["ENUMERASI"] = "enumerasi";
+    TokenType["GENERIK"] = "generic";
+    TokenType["DEKORATOR"] = "dekorator";
+    TokenType["PROPERTI"] = "properti";
+    TokenType["DAPATKAN"] = "dapatkan";
+    TokenType["ATUR"] = "atur";
+    TokenType["PRIBADI"] = "pribadi";
+    TokenType["TERLINDUNGI"] = "terlindungi";
+    TokenType["PUBLIK"] = "publik";
+    TokenType["CAMPUR"] = "campur";
+    TokenType["PROTOKOL"] = "protocol";
+    TokenType["KOLEKSI"] = "koleksi";
+    TokenType["OPSIONAL"] = "opsional";
+    TokenType["GABUNGAN"] = "gabungan";
+    TokenType["POTONGAN"] = "potongan";
+    TokenType["FUNGSI_PANAH"] = "=>";
+    TokenType["KOMPONEN"] = "komponen";
+    TokenType["RENDER"] = "render";
+    TokenType["STATE"] = "state";
+    TokenType["EFEK"] = "efek";
+    TokenType["RUTE"] = "rute";
+    TokenType["MODEL"] = "model";
+    TokenType["KONTROLER"] = "kontroler";
+    TokenType["TAMPILAN"] = "tampilan";
+    TokenType["GAYA"] = "gaya";
+    TokenType["IMPOR"] = "impor";
+    TokenType["EKSPOR"] = "ekspor";
+    // Testing
+    TokenType["UJI"] = "uji";
+    TokenType["HARAPKAN"] = "harapkan";
+    TokenType["SEBELUM"] = "sebelum";
+    TokenType["SESUDAH"] = "sesudah";
+    // Standard library
+    TokenType["FILE"] = "file";
+    TokenType["HTTP"] = "http";
+    TokenType["BASIS_DATA"] = "basis_data";
+    TokenType["OTENTIKASI"] = "otentikasi";
     TokenType["DERET"] = "deret";
     // Operators
     TokenType["PLUS"] = "+";

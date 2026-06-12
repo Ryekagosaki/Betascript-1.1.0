@@ -1,0 +1,1 @@
+{"version":3,"file":"JavaScriptGenerator.d.ts","sourceRoot":"","sources":["../../../src/codegen/JavaScriptGenerator.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAMhB,MAAM,UAAU,CAAC;AAClB,OAAO,EAAE,aAAa,EAAE,MAAM,iBAAiB,CAAC;AAGhD,qBAAa,mBAAoB,SAAQ,aAAa;IACpD,IAAI,SAAQ;IACZ,QAAQ,CAAC,MAAM,EAAE,QAAQ;IAkBzB,OAAO,CAAC,yBAAyB;IA2BjC,SAAS,CAAC,kBAAkB,IAAI,IAAI;CAkDrC"}

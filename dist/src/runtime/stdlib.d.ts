@@ -62,7 +62,7 @@ export declare const teks: {
     kecil: (v: unknown) => string;
     pisah: (v: unknown, separator: string | RegExp) => string[];
     ganti: (v: unknown, search: string | RegExp, replace: string) => string;
-    cocok: (v: unknown, pattern: RegExp) => RegExpMatchArray | null;
+    cocok: (v: unknown, pattern: RegExp) => RegExpMatchArray;
 };
 export declare const deret: {
     petakan: <T, U>(v: T[], fn: (item: T, index: number, array: T[]) => U) => U[];

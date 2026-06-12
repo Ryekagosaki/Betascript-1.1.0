@@ -1,0 +1,12 @@
+cetak Anjing {
+  mula(nama: tulisan) {
+    this.nama = nama
+  }
+
+  bersuara(): tulisan {
+    balikin "Guk guk!"
+  }
+}
+
+ane anjing = anyar Anjing("Buddy")
+teriak(anjing.bersuara())

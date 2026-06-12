@@ -1,0 +1,1 @@
+{"version":3,"file":"EnvironmentDetector.d.ts","sourceRoot":"","sources":["../../../src/detection/EnvironmentDetector.ts"],"names":[],"mappings":"AAGA,MAAM,WAAW,eAAe;IAC9B,MAAM,EAAE,MAAM,CAAC;IACf,UAAU,EAAE,MAAM,GAAG,QAAQ,GAAG,KAAK,CAAC;IACtC,MAAM,EAAE,MAAM,CAAC;CAChB;AAED,qBAAa,mBAAmB;IAC9B,MAAM,CAAC,UAAU,EAAE,MAAM,GAAG,eAAe;CAkD5C"}

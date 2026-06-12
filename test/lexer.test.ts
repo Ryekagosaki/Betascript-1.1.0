@@ -6,7 +6,7 @@ describe("Lexer", () => {
     const lexer = new Lexer("ane tetep kalo selagi kerjain deret");
     const tokens = lexer.tokenize();
     
-    expect(tokens[0].type).toBe(TokenType.ANCE);
+    expect(tokens[0].type).toBe(TokenType.ANE);
     expect(tokens[1].type).toBe(TokenType.TETEP);
     expect(tokens[2].type).toBe(TokenType.KALO);
     expect(tokens[3].type).toBe(TokenType.SELAGI);

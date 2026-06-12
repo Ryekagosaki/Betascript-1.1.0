@@ -113,7 +113,7 @@ export class Parser {
     if (this.isStrictModeDirective()) return this.strictModeStatement();
     if (this.match(TokenType.AMBIL)) return this.importStatement();
     if (this.match(TokenType.KASOH)) return this.kasohStatement();
-    if (this.match(TokenType.ANCE, TokenType.TETEP)) return this.variableDeclaration();
+    if (this.match(TokenType.ANE, TokenType.TETEP)) return this.variableDeclaration();
      
      const isAsync = this.match(TokenType.NANTI);
     if (this.match(TokenType.BIKIN)) return this.functionDeclaration(isAsync);
@@ -156,7 +156,7 @@ export class Parser {
 
   private kasohStatement(): ReturnStatement | ExportStatement {
     if (this.check(TokenType.BIKIN) || this.check(TokenType.CETAK) ||
-        this.check(TokenType.ANCE) || this.check(TokenType.TETEP)) {
+        this.check(TokenType.ANE) || this.check(TokenType.TETEP)) {
       return this.exportStatement();
     }
     return this.returnStatement();
@@ -164,7 +164,7 @@ export class Parser {
 
   private variableDeclaration(): VariableDeclaration {
     const token = this.previous();
-    const kind = token.type === TokenType.ANCE ? "ane" : "tetep";
+    const kind = token.type === TokenType.ANE ? "ane" : "tetep";
     const name = this.bindingPattern();
     
     let typeAnnotation: TypeAnnotation | undefined;
@@ -360,6 +360,13 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
         this.consume(TokenType.LEFT_PAREN, "Expected '(' after method name");
         const parameters = this.parameters();
         this.consume(TokenType.RIGHT_PAREN, "Expected ')' after parameters");
+        
+        let returnType: TypeAnnotation | undefined;
+        if (this.match(TokenType.COLON)) {
+          const typeToken = this.advance();
+          returnType = this.getTypeAnnotation(typeToken);
+        }
+        
         this.consume(TokenType.LEFT_BRACE, "Expected '{' before method body");
         const body = this.parseBlockBody();
         
@@ -373,7 +380,7 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
           isStatic,
           position: this.peek().position
         });
-      } else if (this.match(TokenType.ANCE, TokenType.TETEP)) {
+      } else if (this.match(TokenType.ANE, TokenType.TETEP)) {
         // Field declaration inside class
         const fieldToken = this.previous();
         const fieldName = this.consume(TokenType.IDENTIFIER, "Expected field name").value;
@@ -421,7 +428,7 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
         returnType = this.getTypeAnnotation(typeToken);
       }
       
-      this.consume(TokenType.SEMICOLON, "Expected ';' after method signature");
+      this.match(TokenType.SEMICOLON);
       
       methods.push({
         type: "InterfaceMethod",
@@ -526,7 +533,7 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
 
   private forStatement(): ForStatement {
     this.consume(TokenType.LEFT_PAREN, "Expected '(' after 'itung'");
-    if (!this.match(TokenType.ANCE, TokenType.TETEP)) {
+    if (!this.match(TokenType.ANE, TokenType.TETEP)) {
       throw BetaError.expected("Expected variable declaration after 'itung ('", this.peek().position);
     }
     const init = this.variableDeclaration();
@@ -551,7 +558,7 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
     let kind: "ane" | "tetep" = "ane";
     this.consume(TokenType.LEFT_PAREN, "Expected '(' after 'saban'");
     if (this.match(TokenType.TETEP)) kind = "tetep";
-    else this.match(TokenType.ANCE);
+    else this.match(TokenType.ANE);
     
     const variable = this.consume(TokenType.IDENTIFIER, "Expected variable name").value;
     this.consume(TokenType.DARI, "Expected 'dari' after variable");
@@ -758,7 +765,7 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
       (declaration as FunctionDeclaration).isExported = true;
     } else if (this.match(TokenType.CETAK)) {
       declaration = this.classDeclaration();
-    } else if (this.match(TokenType.ANCE, TokenType.TETEP)) {
+    } else if (this.match(TokenType.ANE, TokenType.TETEP)) {
       declaration = this.variableDeclaration();
     } else {
       throw BetaError.expected("Expected declaration after 'kasoh'", this.peek().position);
@@ -968,7 +975,7 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
       };
     }
 
-    if (this.match(TokenType.TUNGGU)) {
+    if (this.match(TokenType.ITUNGAN)) {
       const arg = this.unary();
       return {
         type: "UnaryExpression",

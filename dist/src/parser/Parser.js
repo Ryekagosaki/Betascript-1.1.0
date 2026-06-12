@@ -67,7 +67,7 @@ class Parser {
             return this.importStatement();
         if (this.match(Token_1.TokenType.KASOH))
             return this.kasohStatement();
-        if (this.match(Token_1.TokenType.ANCE, Token_1.TokenType.TETEP))
+        if (this.match(Token_1.TokenType.ANE, Token_1.TokenType.TETEP))
             return this.variableDeclaration();
         const isAsync = this.match(Token_1.TokenType.NANTI);
         if (this.match(Token_1.TokenType.BIKIN))
@@ -120,14 +120,14 @@ class Parser {
     }
     kasohStatement() {
         if (this.check(Token_1.TokenType.BIKIN) || this.check(Token_1.TokenType.CETAK) ||
-            this.check(Token_1.TokenType.ANCE) || this.check(Token_1.TokenType.TETEP)) {
+            this.check(Token_1.TokenType.ANE) || this.check(Token_1.TokenType.TETEP)) {
             return this.exportStatement();
         }
         return this.returnStatement();
     }
     variableDeclaration() {
         const token = this.previous();
-        const kind = token.type === Token_1.TokenType.ANCE ? "ane" : "tetep";
+        const kind = token.type === Token_1.TokenType.ANE ? "ane" : "tetep";
         const name = this.bindingPattern();
         let typeAnnotation;
         if (this.match(Token_1.TokenType.COLON)) {
@@ -303,6 +303,11 @@ class Parser {
                 this.consume(Token_1.TokenType.LEFT_PAREN, "Expected '(' after method name");
                 const parameters = this.parameters();
                 this.consume(Token_1.TokenType.RIGHT_PAREN, "Expected ')' after parameters");
+                let returnType;
+                if (this.match(Token_1.TokenType.COLON)) {
+                    const typeToken = this.advance();
+                    returnType = this.getTypeAnnotation(typeToken);
+                }
                 this.consume(Token_1.TokenType.LEFT_BRACE, "Expected '{' before method body");
                 const body = this.parseBlockBody();
                 members.push({
@@ -316,7 +321,7 @@ class Parser {
                     position: this.peek().position
                 });
             }
-            else if (this.match(Token_1.TokenType.ANCE, Token_1.TokenType.TETEP)) {
+            else if (this.match(Token_1.TokenType.ANE, Token_1.TokenType.TETEP)) {
                 // Field declaration inside class
                 const fieldToken = this.previous();
                 const fieldName = this.consume(Token_1.TokenType.IDENTIFIER, "Expected field name").value;
@@ -357,7 +362,7 @@ class Parser {
                 const typeToken = this.advance();
                 returnType = this.getTypeAnnotation(typeToken);
             }
-            this.consume(Token_1.TokenType.SEMICOLON, "Expected ';' after method signature");
+            this.match(Token_1.TokenType.SEMICOLON);
             methods.push({
                 type: "InterfaceMethod",
                 name: methodName,
@@ -448,7 +453,7 @@ class Parser {
     }
     forStatement() {
         this.consume(Token_1.TokenType.LEFT_PAREN, "Expected '(' after 'itung'");
-        if (!this.match(Token_1.TokenType.ANCE, Token_1.TokenType.TETEP)) {
+        if (!this.match(Token_1.TokenType.ANE, Token_1.TokenType.TETEP)) {
             throw BetaError_1.BetaError.expected("Expected variable declaration after 'itung ('", this.peek().position);
         }
         const init = this.variableDeclaration();
@@ -473,7 +478,7 @@ class Parser {
         if (this.match(Token_1.TokenType.TETEP))
             kind = "tetep";
         else
-            this.match(Token_1.TokenType.ANCE);
+            this.match(Token_1.TokenType.ANE);
         const variable = this.consume(Token_1.TokenType.IDENTIFIER, "Expected variable name").value;
         this.consume(Token_1.TokenType.DARI, "Expected 'dari' after variable");
         const iterable = this.assignment();
@@ -654,7 +659,7 @@ class Parser {
         else if (this.match(Token_1.TokenType.CETAK)) {
             declaration = this.classDeclaration();
         }
-        else if (this.match(Token_1.TokenType.ANCE, Token_1.TokenType.TETEP)) {
+        else if (this.match(Token_1.TokenType.ANE, Token_1.TokenType.TETEP)) {
             declaration = this.variableDeclaration();
         }
         else {
@@ -829,7 +834,7 @@ class Parser {
                 position: this.peek().position
             };
         }
-        if (this.match(Token_1.TokenType.TUNGGU)) {
+        if (this.match(Token_1.TokenType.ITUNGAN)) {
             const arg = this.unary();
             return {
                 type: "UnaryExpression",
